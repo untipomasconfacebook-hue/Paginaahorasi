@@ -23,6 +23,7 @@ const fallbackProducts = [
         category: 'electronics',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.7, count: 89 }
+        category: 'electronicos'
     },
     {
         id: 3,
@@ -32,6 +33,7 @@ const fallbackProducts = [
         category: 'electronics',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.6, count: 234 }
+        category: 'electronicos'
     },
     {
         id: 4,
@@ -41,6 +43,7 @@ const fallbackProducts = [
         category: 'electronics',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.4, count: 156 }
+        category: 'electronicos'
     },
     {
         id: 5,
@@ -50,6 +53,7 @@ const fallbackProducts = [
         category: 'electronics',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.8, count: 445 }
+        category: 'electronicos'
     },
     {
         id: 6,
@@ -59,6 +63,7 @@ const fallbackProducts = [
         category: 'electronics',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.6, count: 678 }
+        category: 'electronicos'
     }
 ];
 
@@ -70,7 +75,7 @@ const popularProducts = [
         image: 'imagenes/calajo.jpeg',
         description: 'La laptop más potente del mercado con chip M3',
         rating: { rate: 4.9, count: 523 },
-        category: 'electronics'
+        category: 'electronicos'
     },
     {
         id: 'pop2',
@@ -79,7 +84,7 @@ const popularProducts = [
         image: 'imagenes/calajo.jpeg',
         description: 'El smartphone más avanzado con chip A17 Pro',
         rating: { rate: 4.8, count: 892 },
-        category: 'electronics'
+        category: 'electronicos'
     },
     {
         id: 'pop3',
@@ -88,7 +93,7 @@ const popularProducts = [
         image: 'imagenes/calajo.jpeg',
         description: 'Cancelación de ruido adaptativa revolucionaria',
         rating: { rate: 4.7, count: 1205 },
-        category: 'electronics'
+        category: 'electronicos'
     }
 ];
 
