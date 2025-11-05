@@ -17,7 +17,7 @@ const fallbackProducts = [
     },
     {
         id: 2,
-        title: 'Monitor 4K Ultra HD 27"',
+        title: 'Nose',
         price: 499.99,
         description: 'Monitor profesional de 27 pulgadas con panel IPS y HDR',
         category: 'electronicos',
@@ -27,7 +27,7 @@ const fallbackProducts = [
     },
     {
         id: 3,
-        title: 'Teclado Mecánico RGB',
+        title: 'Si se',
         price: 149.99,
         description: 'Teclado mecánico gaming con switches Cherry MX Red',
         category: 'electronicos',
@@ -708,3 +708,4 @@ console.log('TechStore JavaScript cargado');
 console.log('Usuario de prueba: mcliente / password');
 console.log('Carrito funcional listo');
 console.log('Filtros y búsqueda activos');
+
