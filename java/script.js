@@ -1,4 +1,3 @@
-
 const VALID_USER = { username: 'mcliente', password: 'password' };
 
 let cart = [];
@@ -23,7 +22,6 @@ const fallbackProducts = [
         category: 'electronicos',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.7, count: 89 }
-        category: 'electronicos'
     },
     {
         id: 3,
@@ -33,7 +31,6 @@ const fallbackProducts = [
         category: 'electronicos',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.6, count: 234 }
-        category: 'electronicos'
     },
     {
         id: 4,
@@ -43,7 +40,6 @@ const fallbackProducts = [
         category: 'electronicos',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.4, count: 156 }
-        category: 'electronicos'
     },
     {
         id: 5,
@@ -53,7 +49,6 @@ const fallbackProducts = [
         category: 'electronicos',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.8, count: 445 }
-        category: 'electronicos'
     },
     {
         id: 6,
@@ -63,7 +58,6 @@ const fallbackProducts = [
         category: 'electronicos',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.6, count: 678 }
-        category: 'electronicos'
     }
 ];
 
@@ -121,19 +115,15 @@ const techNews = [
     }
 ];
 
-
 const VALIDATORS = {
     username: /^[a-zA-Z0-9_]{3,20}$/,
     email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
     password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
 };
 
-
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Iniciando TechStore...');
     showLoading(true);
     
-    // Cargar todo el contenido
     loadProducts();
     renderPopularProducts();
     renderNews();
@@ -142,24 +132,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     setTimeout(() => {
         showLoading(false);
-        console.log('TechStore cargado correctamente');
     }, 1000);
 });
 
-
 async function loadProducts() {
     try {
-        console.log('Cargando productos desde API...');
-        const response = await fetch(API_URL);
+        const response = await fetch('https://fakestoreapi.com/products');
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const data = await response.json();
-        console.log('Productos API recibidos:', data.length);
         
-        // Adaptar productos de la API
         allProducts = data.map(product => ({
             id: product.id,
             title: product.title,
@@ -173,19 +158,15 @@ async function loadProducts() {
         renderProducts(allProducts);
         
     } catch (error) {
-        console.error('Error cargando productos:', error);
-        console.log('Usando productos de respaldo...');
         allProducts = fallbackProducts;
         renderProducts(allProducts);
     }
 }
 
-
 function renderProducts(products) {
     const grid = document.getElementById('productosGrid');
     
     if (!grid) {
-        console.error('Grid de productos no encontrado');
         return;
     }
     
@@ -194,7 +175,6 @@ function renderProducts(products) {
         return;
     }
     
-    console.log('Renderizando', products.length, 'productos');
     grid.innerHTML = products.map(product => createProductCard(product)).join('');
 }
 
@@ -240,35 +220,23 @@ function generateStars(rating) {
            '☆'.repeat(emptyStars);
 }
 
-// ============================================
-// PRODUCTOS POPULARES
-// ============================================
-
 function renderPopularProducts() {
     const grid = document.getElementById('popularesGrid');
     
     if (!grid) {
-        console.error('Grid de populares no encontrado');
         return;
     }
     
-    console.log('Renderizando productos populares');
     grid.innerHTML = popularProducts.map(product => createProductCard(product)).join('');
 }
-
-// ============================================
-// NOTICIAS
-// ============================================
 
 function renderNews() {
     const grid = document.getElementById('noticiasGrid');
     
     if (!grid) {
-        console.error('Grid de noticias no encontrado');
         return;
     }
     
-    console.log('Renderizando noticias');
     grid.innerHTML = techNews.map(news => `
         <article class="noticia-card" role="listitem">
             <div class="noticia-image" aria-hidden="true">
@@ -294,16 +262,10 @@ function formatDate(dateString) {
     });
 }
 
-// ============================================
-// GESTIÓN DEL CARRITO
-// ============================================
-
 function addToCart(productId) {
-    console.log('Agregando producto al carrito:', productId);
     const product = findProductById(productId);
     
     if (!product) {
-        console.error('Producto no encontrado:', productId);
         showNotification('Producto no encontrado', 'error');
         return;
     }
@@ -322,17 +284,14 @@ function addToCart(productId) {
         });
     }
     
-    console.log('Carrito actualizado:', cart);
     updateCartDisplay();
     showNotification(product.title + ' agregado al carrito', 'success');
     animateCartIcon();
 }
 
 function findProductById(id) {
-    // Buscar en productos de API
     let product = allProducts.find(p => p.id == id);
     
-    // Si no está, buscar en populares
     if (!product) {
         product = popularProducts.find(p => p.id == id);
     }
@@ -406,14 +365,10 @@ function animateCartIcon() {
     }
 }
 
-
-
 function toggleCart() {
-    console.log('Toggle carrito');
     const modal = document.getElementById('cartModal');
     
     if (!modal) {
-        console.error('Modal del carrito no encontrado');
         return;
     }
     
@@ -427,10 +382,8 @@ function toggleCart() {
 }
 
 function openModal(modalId) {
-    console.log('Abriendo modal:', modalId);
     const modal = document.getElementById(modalId);
     if (!modal) {
-        console.error('Modal no encontrado:', modalId);
         return;
     }
     modal.classList.add('show');
@@ -439,7 +392,6 @@ function openModal(modalId) {
 }
 
 function closeModal(modalId) {
-    console.log('Cerrando modal:', modalId);
     const modal = document.getElementById(modalId);
     if (!modal) return;
     modal.classList.remove('show');
@@ -447,31 +399,24 @@ function closeModal(modalId) {
     document.body.style.overflow = 'auto';
 }
 
-
-
-
 function handleLogin(event) {
     event.preventDefault();
-    console.log('Procesando login...');
     
     const username = document.getElementById('loginUsername').value.trim();
     const password = document.getElementById('loginPassword').value;
     
     if (username === VALID_USER.username && password === VALID_USER.password) {
         currentUser = { username, email: 'mcliente@techstore.com' };
-        console.log('Login exitoso:', currentUser);
         showNotification('¡Bienvenido ' + username + '!', 'success');
         closeModal('loginModal');
         proceedToCheckoutConfirmation();
     } else {
-        console.log('Credenciales incorrectas');
         showNotification('Usuario o contraseña incorrectos', 'error');
     }
 }
 
 function handleRegister(event) {
     event.preventDefault();
-    console.log('Procesando registro...');
     
     const username = document.getElementById('regUsername').value.trim();
     const email = document.getElementById('regEmail').value.trim();
@@ -480,7 +425,6 @@ function handleRegister(event) {
     const payment = document.getElementById('regPayment').value;
     
     currentUser = { username, email, country, payment };
-    console.log('Registro exitoso:', currentUser);
     showNotification('¡Cuenta creada exitosamente!', 'success');
     closeModal('registerModal');
     proceedToCheckoutConfirmation();
@@ -496,12 +440,7 @@ function switchToLogin() {
     openModal('loginModal');
 }
 
-
-
-
 function proceedToCheckout() {
-    console.log('Proceder al checkout');
-    
     if (cart.length === 0) {
         showNotification('Tu carrito está vacío', 'warning');
         return;
@@ -516,7 +455,6 @@ function proceedToCheckout() {
 }
 
 function proceedToCheckoutConfirmation() {
-    console.log('Mostrando checkout confirmation');
     closeModal('loginModal');
     closeModal('registerModal');
     closeModal('cartModal');
@@ -525,7 +463,6 @@ function proceedToCheckoutConfirmation() {
     const checkoutTotal = document.getElementById('checkoutTotal');
     
     if (!checkoutItems || !checkoutTotal) {
-        console.error('Elementos de checkout no encontrados');
         return;
     }
     
@@ -552,7 +489,6 @@ function proceedToCheckoutConfirmation() {
 }
 
 function confirmPurchase() {
-    console.log('Confirmando compra...');
     showLoading(true);
     
     setTimeout(() => {
@@ -566,11 +502,7 @@ function confirmPurchase() {
     }, 2000);
 }
 
-
-
-
 function filterProducts(category) {
-    console.log('Filtrando por categoría:', category);
     const products = document.querySelectorAll('.productos-section .product-card');
     const filterButtons = document.querySelectorAll('.filter-btn');
     
@@ -603,8 +535,6 @@ function handleSearch() {
     const searchInput = document.getElementById('searchInput');
     const searchTerm = searchInput.value.trim().toLowerCase();
     
-    console.log('Buscando:', searchTerm);
-    
     const products = document.querySelectorAll('.product-card');
     let foundCount = 0;
     
@@ -636,12 +566,7 @@ function handleSearch() {
     showNotification('Se encontraron ' + foundCount + ' producto(s)', 'success');
 }
 
-
-
-
 function setupEventListeners() {
-    console.log('Configurando event listeners...');
-    
     document.querySelectorAll('.modal').forEach(modal => {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
@@ -671,14 +596,9 @@ function setupEventListeners() {
             }
         });
     });
-    
-    console.log('Event listeners configurados');
 }
 
-
-
 function showNotification(message, type = 'info') {
-    console.log('Notificación:', message, type);
     const notification = document.getElementById('notification');
     if (!notification) return;
     
@@ -703,8 +623,3 @@ function showLoading(show) {
         overlay.setAttribute('aria-hidden', 'true');
     }
 }
-
-console.log('TechStore JavaScript cargado');
-console.log('Usuario de prueba: mcliente / password');
-console.log('Carrito funcional listo');
-console.log('Filtros y búsqueda activos');
