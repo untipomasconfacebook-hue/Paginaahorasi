@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi primera web</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header role="banner">
+        <nav role="navigation" aria-label="Navegación principal">
+            <div class="logo">
+                <img src="../imagenes/sislogo.png" alt="tEsla" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="logo-text">Tesla 2.0</span>
+            </div>
+            
+            <div class="search-bar" role="search">
+                <label for="searchInput" class="sr-only">Buscar productos</label>
+                <input type="text" 
+                       id="searchInput" 
+                       placeholder="Buscar productos..."
+                       aria-label="Campo de búsqueda de productos"
+                       aria-controls="productos-section">
+                <button onclick="handleSearch()" aria-label="Realizar búsqueda">
+                    <span aria-hidden="true">&#128269;</span>
+                </button>
+            </div>
+            
+            <ul class="nav-links" role="list">
+                <li role="listitem"><a href="#populares">Populares</a></li>
+                <li role="listitem"><a href="#noticias">Noticias</a></li>
+                <li role="listitem"><a href="#productos">Productos</a></li>
+            </ul>
+            
+            <button class="cart-icon" 
+                    onclick="toggleCart()"
+                    aria-label="Abrir carrito de compras"
+                    aria-expanded="false"
+                    aria-controls="cartModal">
+                <span aria-hidden="true">&#128722;</span> 
+                Carrito (<span id="cart-count" aria-live="polite">0</span>)
+            </button>
+        </nav>
+    </header>
+
+    <main id="main-content" role="main">
+		
+        <section class="populares-section" id="populares" aria-labelledby="populares-title">
+            <div class="section-header">
+                <h2 id="populares-title" class="section-title">Productos Más Populares</h2>
+                <p class="section-subtitle">Los más vendidos del momento</p>
+            </div>
+            <div class="populares-grid" id="popularesGrid" role="list">
+            </div>
+        </section>
+
+
+        <section class="noticias-section" id="noticias" aria-labelledby="noticias-title">
+            <div class="section-header">
+                <h2 id="noticias-title" class="section-title">Últimas Noticias</h2>
+                <p class="section-subtitle">Mantente al día con las novedades</p>
+            </div>
+            <div class="noticias-grid" id="noticiasGrid" role="list">
+            </div>
+        </section>
+
+
+        <section class="productos-section" id="productos" aria-labelledby="productos-title">
+            <div class="section-header">
+                <h2 id="productos-title" class="section-title">Nuestro Catálogo Completo</h2>
+                <p class="section-subtitle">Explora todos nuestros productos tecnológicos</p>
+            </div>
+            
+            <div class="filter-section" role="group" aria-labelledby="filter-title">
+                <h3 id="filter-title" class="sr-only">Filtrar productos por categoría</h3>
+                <button class="filter-btn active" onclick="filterProducts('todos')" aria-pressed="true">
+                    Todos
+                </button>
+                <button class="filter-btn" onclick="filterProducts('electronicos')" aria-pressed="false">
+                    Electrónicos
+                </button>
+                <button class="filter-btn" onclick="filterProducts('computadoras')" aria-pressed="false">
+                    Computadoras
+                </button>
+                <button class="filter-btn" onclick="filterProducts('audio')" aria-pressed="false">
+                    Audio
+                </button>
+                <button class="filter-btn" onclick="filterProducts('movil')" aria-pressed="false">
+                    Móviles
+                </button>
+            </div>
+
+            <div class="productos-grid" id="productosGrid" role="list">
+            </div>
+        </section>
+
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Tesla 2.0</h3>
+                <p>Tu tienda de tecnología de confianza desde hoy </p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>Email: correoejemplo@puce.edu.ec</p>
+                <p>Tel: +593 ...</p>
+            </div>
+            <div class="footer-section">
+                <h3>Síguenos</h3>
+                <p>Facebook | Twitter | Instagram</p>
+            </div>
+        </div>
+        <p class="footer-copyright">&copy; 2025 Yo - Todos los derechos reservados a mi</p>
+    </footer>
+
+    <div class="modal cart-modal" 
+         id="cartModal"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="cart-title"
+         aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="cart-title">Carrito de Compras</h2>
+                <button class="close-modal" 
+                        onclick="toggleCart()"
+                        aria-label="Cerrar carrito">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="cart-items" id="cartItems" role="list" aria-live="polite">
+                    <p class="empty-cart">Tu carrito está vacío</p>
+                </div>
+                <div class="cart-footer">
+                    <div class="cart-total">
+                        <strong>Total:</strong>
+                        <span id="cartTotal" aria-live="polite">$0.00</span>
+                    </div>
+                    <button class="btn-primary" onclick="proceedToCheckout()">
+                        Proceder al Pago
+                    </button>
+                    <button class="btn-secondary" onclick="clearCart()">
+                        Vaciar Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE INICIO DE SESIÓN -->
+    <div class="modal auth-modal" 
+         id="loginModal"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="login-title"
+         aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="login-title">Iniciar Sesión</h2>
+                <button class="close-modal" 
+                        onclick="closeModal('loginModal')"
+                        aria-label="Cerrar inicio de sesión">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm" onsubmit="handleLogin(event)" novalidate>
+                    <div class="form-group">
+                        <label for="loginUsername">Usuario *</label>
+                        <input type="text" 
+                               id="loginUsername" 
+                               name="username" 
+                               required
+                               pattern="^[a-zA-Z0-9_]{3,20}$"
+                               aria-describedby="loginUsernameError"
+                               aria-required="true">
+                        <span class="error-message" id="loginUsernameError" role="alert"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Contraseña *</label>
+                        <input type="password" 
+                               id="loginPassword" 
+                               name="password" 
+                               required
+                               minlength="6"
+                               aria-describedby="loginPasswordError"
+                               aria-required="true">
+                        <span class="error-message" id="loginPasswordError" role="alert"></span>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Iniciar Sesión</button>
+                    <p class="form-footer">
+                        ¿No tienes cuenta? 
+                        <button type="button" class="link-btn" onclick="switchToRegister()">
+                            Crear cuenta
+                        </button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal auth-modal" 
+         id="registerModal"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="register-title"
+         aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="register-title">Crear Cuenta</h2>
+                <button class="close-modal" 
+                        onclick="closeModal('registerModal')"
+                        aria-label="Cerrar registro">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm" onsubmit="handleRegister(event)" novalidate>
+                    <div class="form-group">
+                        <label for="regUsername">Nombre de Usuario *</label>
+                        <input type="text" 
+                               id="regUsername" 
+                               name="username" 
+                               required
+                               pattern="^[a-zA-Z0-9_]{3,20}$"
+                               aria-describedby="regUsernameError"
+                               aria-required="true">
+                        <span class="error-message" id="regUsernameError" role="alert"></span>
+                        <span class="field-hint">3-20 caracteres, letras, números y guión bajo</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regEmail">Correo Electrónico *</label>
+                        <input type="email" 
+                               id="regEmail" 
+                               name="email" 
+                               required
+                               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                               aria-describedby="regEmailError"
+                               aria-required="true">
+                        <span class="error-message" id="regEmailError" role="alert"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regPassword">Contraseña *</label>
+                        <input type="password" 
+                               id="regPassword" 
+                               name="password" 
+                               required
+                               pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$"
+                               aria-describedby="regPasswordError"
+                               aria-required="true">
+                        <span class="error-message" id="regPasswordError" role="alert"></span>
+                        <span class="field-hint">Mínimo 6 caracteres, debe incluir letras y números</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regCountry">País *</label>
+                        <select id="regCountry" 
+                                name="country" 
+                                required
+                                aria-describedby="regCountryError"
+                                aria-required="true">
+                            <option value="">Selecciona tu país</option>
+                            <option value="EC">Ecuador</option>
+                            <option value="CO">Colombia</option>
+                            <option value="PE">Perú</option>
+                            <option value="MX">México</option>
+                            <option value="AR">Argentina</option>
+                            <option value="CL">Chile</option>
+                            <option value="US">Estados Unidos</option>
+                            <option value="ES">España</option>
+                        </select>
+                        <span class="error-message" id="regCountryError" role="alert"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regPayment">Método de Pago *</label>
+                        <select id="regPayment" 
+                                name="payment" 
+                                required
+                                aria-describedby="regPaymentError"
+                                aria-required="true">
+                            <option value="">Selecciona método de pago</option>
+                            <option value="credit">Tarjeta de Crédito</option>
+                            <option value="debit">Tarjeta de Débito</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="transfer">Transferencia Bancaria</option>
+                        </select>
+                        <span class="error-message" id="regPaymentError" role="alert"></span>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Crear Cuenta</button>
+                    <p class="form-footer">
+                        ¿Ya tienes cuenta? 
+                        <button type="button" class="link-btn" onclick="switchToLogin()">
+                            Iniciar sesión
+                        </button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal checkout-modal" 
+         id="checkoutModal"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="checkout-title"
+         aria-hidden="true">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="checkout-title">Finalizar Compra</h2>
+                <button class="close-modal" 
+                        onclick="closeModal('checkoutModal')"
+                        aria-label="Cerrar checkout">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="checkout-content">
+                    <div class="checkout-summary">
+                        <h3>Resumen del Pedido</h3>
+                        <div id="checkoutItems"></div>
+                        <div class="checkout-total">
+                            <strong>Total a Pagar:</strong>
+                            <span id="checkoutTotal">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="checkout-actions">
+                        <button class="btn-primary btn-large" onclick="confirmPurchase()">
+                            Confirmar Compra
+                        </button>
+                        <button class="btn-secondary" onclick="closeModal('checkoutModal')">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" 
+         id="notification"
+         role="alert"
+         aria-live="assertive"
+         aria-atomic="true">
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay" aria-hidden="true">
+        <div class="spinner" role="status">
+            <span class="sr-only">Cargando...</span>
+        </div>
+    </div>
+
+    <script src="java/script.js"></script>
+</body>
+</html>
