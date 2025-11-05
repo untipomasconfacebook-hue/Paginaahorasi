@@ -11,7 +11,7 @@ const fallbackProducts = [
         title: 'Calajo',
         price: 1299.99,
         description: 'Laptop de alto rendimiento con RTX 4060 y procesador Intel i7',
-        category: 'electronics',
+        category: 'electronicos',
         image: 'imagenes/calajo.jpg',
         rating: { rate: 4.5, count: 120 }
     },
@@ -20,7 +20,7 @@ const fallbackProducts = [
         title: 'Monitor 4K Ultra HD 27"',
         price: 499.99,
         description: 'Monitor profesional de 27 pulgadas con panel IPS y HDR',
-        category: 'electronics',
+        category: 'electronicos',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.7, count: 89 }
         category: 'electronicos'
@@ -30,7 +30,7 @@ const fallbackProducts = [
         title: 'Teclado Mecánico RGB',
         price: 149.99,
         description: 'Teclado mecánico gaming con switches Cherry MX Red',
-        category: 'electronics',
+        category: 'electronicos',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.6, count: 234 }
         category: 'electronicos'
@@ -40,7 +40,7 @@ const fallbackProducts = [
         title: 'Mouse Gaming Inalámbrico',
         price: 79.99,
         description: 'Mouse gaming de precisión con sensor de 16000 DPI',
-        category: 'electronics',
+        category: 'electronicos',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.4, count: 156 }
         category: 'electronicos'
@@ -50,7 +50,7 @@ const fallbackProducts = [
         title: 'Audífonos Bluetooth Premium',
         price: 199.99,
         description: 'Audífonos con cancelación de ruido y 30h de batería',
-        category: 'electronics',
+        category: 'electronicos',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.8, count: 445 }
         category: 'electronicos'
@@ -60,7 +60,7 @@ const fallbackProducts = [
         title: 'Smartphone 5G Pro',
         price: 899.99,
         description: 'Smartphone con pantalla AMOLED y cámara de 108MP',
-        category: 'electronics',
+        category: 'electronicos',
         image: 'imagenes/calajo.jpeg',
         rating: { rate: 4.6, count: 678 }
         category: 'electronicos'
